@@ -28,3 +28,14 @@ jobs:
       - name: Twister
         run: |
           west twister -v --integration -T libcsp-zephyr
+
+      - name: Upload Twister reports on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: twister-reports
+          path: |
+            libcsp-zephyr/twister-out/twister.json
+            libcsp-zephyr/twister-out/twister.xml
+            libcsp-zephyr/twister-out/twister_report.xml
+
